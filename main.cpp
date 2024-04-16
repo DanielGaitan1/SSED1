@@ -5,14 +5,14 @@ using namespace std;
 template<class T>
 class LSLSE;
 
-//Clase alumno Club
+//Clase Socio Club
 template<class T>
-class Alumno{
+class SocioClub{
     public:
-        string nombre;
-        string Carrera;
-        float Promedio;
-        int Materias;
+        int NumeroSocio;
+        string NombreSocio;
+        string Domicilio;
+        int AnoIngreso;
 };
 
 //Clase para nodo
@@ -26,17 +26,17 @@ public:
     friend class LSLSE<T>;
 
     //Metodos funciones getters para devolver los valores de los atributos de la clase nodo privados de Data
-    string obtenernombre() const {
-        return data.nombre;
+    int obtenerNumeroSocio() const {
+        return data.NumeroSocio;
     }
-    string obtenerCarrera() const { //const para no modificar el valor solo para consulta
-        return data.Carrera;
+    string obtenerNombreSocio() const { //const para no modificar el valor solo para consulta
+        return data.NombreSocio;
     }
-    float obtenerPromedio() const { //Son funciones que regresan el valor que se esta solicitando
-        return data.Promedio;
+    string obtenerDomicilio() const { //Son funciones que regresan el valor que se esta solicitando
+        return data.Domicilio;
     }
-    int obtenerMaterias() const {
-        return data.Materias;
+    int obtenerAnoIngreso() const {
+        return data.AnoIngreso;
     }
     node<T>* obtenersig()const{
     return sig;
@@ -59,7 +59,7 @@ public:
     bool eliminar(node<T>* pos);
     void imprimir()const;
     int contarElementos() const { return contador; }
-    node<T>* buscarPorPromedio(const float& Promedio) const;
+    node<T>* buscarPorDomicilio(const string& domicilio) const;
     node<T>* buscarPorNombre(const string& nombre) const;
 };
 
@@ -67,10 +67,10 @@ template<class T>
 void LSLSE<T>::imprimir() const {
     node<T>* aux = lista;
     while (aux != nullptr) {
-        cout <<"Nombre de alumno: " << aux->data.nombre <<endl;
-        cout<<"Carrera que cursa: "<< aux->data.Carrera<<endl;
-        cout<<"Promedio: "<< aux->data.Promedio<<endl;
-        cout<<"Materias aprobadas: "<< aux->data.Materias<<endl;
+        cout <<"Numero de Socio: " << aux->data.NumeroSocio <<endl;
+        cout<<"Nombre del socio: "<< aux->data.NombreSocio<<endl;
+        cout<<"Domicilio: "<< aux->data.Domicilio<<endl;
+        cout<<"Año ingreso: "<< aux->data.AnoIngreso<<endl;
         cout<<"-------------------------------"<<endl;
         aux = aux->sig;
     }
@@ -149,90 +149,131 @@ bool LSLSE<T>::vacia()const{
 }
 
 template<class T>
-node<T>* LSLSE<T>::buscarPorPromedio(const float& Promedio) const {
+node<T>* LSLSE<T>::buscarPorDomicilio(const string& domicilio) const {
     node<T>* aux = lista;
     while (aux != nullptr) {
-        if (aux->obtenerPromedio() == Promedio) {
+        if (aux->obtenerDomicilio() == domicilio) {
             return aux;
         }
         aux = aux->obtenersig();
     }
-    return nullptr; // Si no se encuentra ningún alumno con el Promedio especificado
+    return nullptr; // Si no se encuentra ningún socio con el domicilio especificado
 }
 
 template<class T>
 node<T>* LSLSE<T>::buscarPorNombre(const string& nombre) const {
     node<T>* aux = lista;
     while (aux != nullptr) {
-        if (aux->obtenerCarrera() == nombre) {
+        if (aux->obtenerNombreSocio() == nombre) {
             return aux;
         }
         aux = aux->obtenersig();
     }
-    return nullptr; // Si no se encuentra ningún alumno con el Promedio especificado
+    return nullptr; // Si no se encuentra ningún socio con el domicilio especificado
 }
 
 int main()
 {
-    LSLSE<Alumno<float>> milista; //Se dejo el <float> para no mover tanto el codigo,
-    Alumno<float> alumno;
+    LSLSE<SocioClub<float>> milista; //Se dejo el <float> para no mover tanto el codigo,
+    SocioClub<float> socio;
      int opcion;
     do {
         cout <<endl;
         cout << "Menu:" << endl;
-        cout << "1. Dar de alta solicitud de alumno" << endl;
-        cout << "2. Elaborar constancia de alumno" << endl;
-        cout << "3. Imprimir cola" << endl;
-        cout << "4. Salir" << endl;
-        cout << "Ingrese una opcion: ";
+        cout << "1. Registrar Socio" << endl;
+        cout << "2. Dar de Baja" << endl;
+        cout << "3. Generar Reporte" << endl;
+        cout << "4. Buscar por Nombre" << endl;
+        cout << "5. Buscar por Domicilio" << endl;
+        cout << "6. Calcular e Imprimir Socios" << endl;
+        cout << "7. Salir" << endl;
+        cout << "Ingrese una opción: ";
         cin >> opcion;
 
         switch (opcion) {
             case 1:
-                cout << "Dame el nombre del alumno" << endl;
-                cin>>alumno.nombre;
-                cout << "Dame la carrera que cursa" << endl;
-                cin>>alumno.Carrera;
-                cout << "Dame el Promedio" << endl;
-                cin>>alumno.Promedio;
-                cout << "Dame la cantidad de materias aprobadas" << endl;
-                cin>>alumno.Materias;
+                cout << "Dame el numero del Socio" << endl;
+                cin>>socio.NumeroSocio;
+                cout << "Dame el nombre del socio" << endl;
+                cin>>socio.NombreSocio;
+                cout << "Dame el domicilio" << endl;
+                cin>>socio.Domicilio;
+                cout << "Dame el anio de ingreso" << endl;
+                cin>>socio.AnoIngreso;
 
-                milista.insertar(milista.ultimo(), alumno);
+                milista.insertar(milista.ultimo(), socio);
 
                 break;
             case 2:{
+                int numSocio;
 
-                node<Alumno<float>>* aux = milista.primero();
+                cout << "Ingrese el número de socio a dar de baja: ";
+                cin >> numSocio;
 
-                if (aux == nullptr) {
-                    cout << "La cola se encuentra vacia" << endl;
-                    break;
-                }
-                cout<<"Nombre del alumno:"<<aux->obtenernombre()<<endl;
-                cout<<"Carrera:"<<aux->obtenerCarrera()<<endl;
-                cout<<"Promedio:"<<aux->obtenerPromedio()<<endl;
-                cout<<"Cantidad de materias aprobadas:"<<aux->obtenerMaterias()<<endl;
 
+                node<SocioClub<float>>* aux = milista.primero();
                 while (aux != nullptr) {
-                    milista.eliminar(aux);
-                    cout << "Alumno desencolado." << endl;
-                    break;
+                    if (aux->obtenerNumeroSocio() == numSocio) {
+                        milista.eliminar(aux);
+                        cout << "Socio eliminado exitosamente." << endl;
+                        break;
+                    }
+                    aux = aux->obtenersig();
+                }
+                if (aux == nullptr) {
+                    cout << "No se encontró un socio con ese número." << endl;
                 }
             }
                 break;
             case 3:
                 milista.imprimir();
                 break;
-
             case 4:
+                {
+                string nombre;
+                cout << "Ingrese el nombre a buscar: ";
+                cin >> nombre;
+                node<SocioClub<float>>* resultado = milista.buscarPorNombre(nombre);
+                if (resultado != nullptr) {
+                    cout << "Se encontró un socio con el nombre especificado:" << endl;
+                    cout <<"Numero de Socio: " << resultado->obtenerNumeroSocio() <<endl;
+                    cout<<"Nombre del socio: "<< resultado->obtenerNombreSocio()<<endl;
+                    cout<<"Domicilio: "<< resultado->obtenerDomicilio()<<endl;
+                    cout<<"Año ingreso: "<< resultado->obtenerAnoIngreso()<<endl;
+                } else {
+                    cout << "No se encontró ningún socio con ese nombre." << endl;
+                }
+            }
+
+                break;
+            case 5:{
+                string domicilio;
+                cout << "Ingrese el domicilio a buscar: ";
+                cin >> domicilio;
+                node<SocioClub<float>>* resultado = milista.buscarPorDomicilio(domicilio);
+                if (resultado != nullptr) {
+                    cout << "Se encontró un socio con el domicilio especificado:" << endl;
+                    cout <<"Numero de Socio: " << resultado->obtenerNumeroSocio() <<endl;
+                    cout<<"Nombre del socio: "<< resultado->obtenerNombreSocio()<<endl;
+                    cout<<"Domicilio: "<< resultado->obtenerDomicilio()<<endl;
+                    cout<<"Año ingreso: "<< resultado->obtenerAnoIngreso()<<endl;
+                } else {
+                    cout << "No se encontró ningún socio con ese domicilio." << endl;
+                }
+            }
+
+                break;
+            case 6:
+                cout << "Número total de elementos en la lista: " << milista.contarElementos() << endl;
+                break;
+            case 7:
                 std::cout << "Saliendo del programa." << std::endl;
                 break;
             default:
                 std::cout << "Opción inválida. Inténtelo de nuevo." << std::endl;
                 break;
         }
-    } while (opcion != 4);
+    } while (opcion != 7);
 
     return 0;
 }
