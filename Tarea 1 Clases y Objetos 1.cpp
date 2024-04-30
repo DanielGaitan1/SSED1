@@ -2,40 +2,42 @@
 
 /* Programa con los objetos declarados
 Jefe planta empleado 1  y Jefe personal empleado 2 a los cuales se les aplican las funciones del menu*/
-//Tiene error en las variables hasta el final me di cuenta que la tarea especificaba ciertos nombres para variables
 
 using namespace std;
 
 class Empleado {
 
 private:
-    string nombre;
-    string domicilio;
-    float sueldo;
-    string reporta;
+    int ClaveEmpleado;
+    string Nombre;
+    string Domicilio;
+    float Sueldo;
+    string ReportaA;
 
 public:
     //constructor
-    Empleado (string nombre, string domicilio, float sueldo,string reporta){
-        this-> nombre = nombre;
-        this-> domicilio = domicilio;
-        this-> sueldo = sueldo;
-        this-> reporta = reporta;
+    Empleado (int ClaveEmpleado, string Nombre, string Domicilio, float Sueldo,string ReportaA){
+        this->ClaveEmpleado = ClaveEmpleado;
+        this-> Nombre = Nombre;
+        this-> Domicilio = Domicilio;
+        this-> Sueldo = Sueldo;
+        this-> ReportaA = ReportaA;
     }
-     void setDomicilio(string domicilionuevo){
-        this->domicilio=domicilionuevo;
+     void CambiaDomic(string Domicilionuevo){
+        this->Domicilio=Domicilionuevo;
     }
-     void setSueldo(float sueldonuevo){
-        this->sueldo=sueldonuevo;
+     void ActualSueldo(float Sueldonuevo){
+        this->Sueldo=Sueldonuevo;
     }
-    void setReporta(string reportanuevo){
-        this->reporta=reportanuevo;
+    void CambiaReportaAA(string ReportaAnuevo){
+        this->ReportaA=ReportaAnuevo;
     }
-    void imprimirEmpleado() const {
-        cout << "Nombre: " << nombre << endl;
-        cout << "Domicilio: " << domicilio << endl;
-        cout << "Sueldo: " << sueldo << endl;
-        cout << "Reporta a: " << reporta << endl;
+    void Imprime() const {
+        cout<<"Clave del Empleado: "<<ClaveEmpleado<<endl;
+        cout << "Nombre: " << Nombre << endl;
+        cout << "Domicilio: " << Domicilio << endl;
+        cout << "Sueldo: " << Sueldo << endl;
+        cout << "ReportaA a: " << ReportaA << endl;
     }
 
 };
@@ -45,19 +47,19 @@ public:
 int main (){
 
     //Declarando los objetos de tipo empleado
-    Empleado empleado1("jefeplanta","amadonervo123",1000,"gerente");
-    Empleado empleado2 ("jefepersonal","Revolucion321",1000,"supervisor");
+    Empleado empleado1(12345,"jefeplanta","amadonervo123",1000,"gerente");
+    Empleado empleado2 (54321,"jefepersonal","Revolucion321",1000,"supervisor");
 
     int opcion;
 do{
     string resp = "";
-    float respsueldo=0;
+    float respSueldo=0;
 
     cout<<"\t Menu\n"<<endl;
-    cout<<"1.Cambiar domicilio de un empleado"<<endl;
-    cout<<"2.Actualizar sueldo de un empleado"<<endl;
+    cout<<"1.Cambiar Domicilio de un empleado"<<endl;
+    cout<<"2.Actualizar Sueldo de un empleado"<<endl;
     cout<<"3.Imprimir los datos de un empleado"<<endl;
-    cout<<"4.Cambiar el nombre de la persona a quien reporta el empleado"<<endl;
+    cout<<"4.Cambiar el Nombre de la persona a quien ReportaA el empleado"<<endl;
 
     cout<<"5.Salir\n"<<endl;
     cin>>opcion;
@@ -66,7 +68,7 @@ do{
 switch (opcion) {
 
     case 1:
-        cout<<"Cambiar domicilio del empleado"<<endl;
+        cout<<"Cambiar Domicilio del empleado"<<endl;
         cout<<"1.Jefe planta"<<endl;
         cout<<"2.Jefe personal"<<endl;
         cout<<"Que opcion quieres elegir(escoger numero)"<<endl;
@@ -77,20 +79,20 @@ switch (opcion) {
 
             case 1:
 
-                cout<<"Cual es el nuevo domicilio"<<endl;
+                cout<<"Cual es el nuevo Domicilio"<<endl;
                 cin>>resp;
 
-                empleado1.setDomicilio(resp);
+                empleado1.CambiaDomic(resp);
                 cout<<"dato guardado"<<endl;
 
                 break;
 
 
             case 2:
-                cout<<"Cual es el nuevo domicilio"<<endl;
+                cout<<"Cual es el nuevo Domicilio"<<endl;
                 cin>>resp;
 
-                empleado2.setDomicilio(resp);
+                empleado2.CambiaDomic(resp);
                 cout<<"dato guardado"<<endl;
                 break;
 
@@ -101,7 +103,7 @@ switch (opcion) {
 
     case 2:
         cout<<"entrando a la funcion 2"<<endl;
-        cout<<"entrando a la funcion 1 Cambiar domicilio del empleado"<<endl;
+        cout<<"entrando a la funcion 1 Cambiar Domicilio del empleado"<<endl;
 
         cout<<"1.Jefe planta"<<endl;
         cout<<"2.Jefe personal"<<endl;
@@ -112,20 +114,20 @@ switch (opcion) {
 
             case 1:
 
-                cout<<"Cual es el nuevo sueldo"<<endl;
-                cin>>respsueldo;
+                cout<<"Cual es el nuevo Sueldo"<<endl;
+                cin>>respSueldo;
 
-                empleado1.setSueldo(respsueldo);
+                empleado1.ActualSueldo(respSueldo);
                 cout<<"dato guardado"<<endl;
 
                 break;
 
             case 2:
 
-                cout<<"Cual es el nuevo sueldo"<<endl;
-                cin>>respsueldo;
+                cout<<"Cual es el nuevo Sueldo"<<endl;
+                cin>>respSueldo;
 
-                empleado2.setSueldo(respsueldo);
+                empleado2.ActualSueldo(respSueldo);
                 cout<<"dato guardado"<<endl;
 
                 break;
@@ -146,10 +148,10 @@ switch (opcion) {
 
         switch (opcion){
             case 1:
-                empleado1.imprimirEmpleado();
+                empleado1.Imprime();
                 break;
             case 2:
-                empleado2.imprimirEmpleado();
+                empleado2.Imprime();
                 break;
         }
         break;
@@ -165,17 +167,17 @@ switch (opcion) {
         switch (opcion){
 
             case 1:
-                cout<<"Cual es la nueva persona a quien reporta"<<endl;
+                cout<<"Cual es la nueva persona a quien ReportaA"<<endl;
                 cin>>resp;
 
-                empleado1.setReporta(resp);
+                empleado1.CambiaReportaAA(resp);
                 cout<<"dato guardado"<<endl;
                 break;
             case 2:
-                cout<<"Cual es la nueva persona a quien reporta"<<endl;
+                cout<<"Cual es la nueva persona a quien ReportaA"<<endl;
                 cin>>resp;
 
-                empleado2.setReporta(resp);
+                empleado2.CambiaReportaAA(resp);
                 cout<<"dato guardado"<<endl;
 
                 break;
